@@ -1,6 +1,10 @@
 # Neuron input impedance (_Z_<sub>in</sub>)
 
-Neuron Simulation Environment script for computing max/min _Z_<sub>in</sub> and generating _Z_<sub>in</sub> map. 
+Neuron Simulation Environment script for computing max/min _Z_<sub>in</sub> and generating _Z_<sub>in</sub> map.
+
+``impedance_map.hoc`` - generates _Z_<sub>in</sub> map
+``max_Zin.hoc`` - computes the max & min _Z_<sub>in</sub> values by looping through the entire electrotonic neuronal structure.
+``max_Zin_distance.hoc``- computes max & min _Z_<sub>in</sub> values within a radial maximum distance from the soma (``MAX_DIST``, line 24).
 
 ---
 

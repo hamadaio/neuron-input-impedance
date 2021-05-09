@@ -1,8 +1,8 @@
 # Neuron Input Impedance (Zin)
 
-Neuron Simulation Environment script for computing max/min Zin and generating Zin map. 
+Neuron Simulation Environment script for computing max/min Zin and generating _Z<sub>in</sub>_ map. 
 
----
+---x
 
 #### Example of rodent & human input impedance map figure (Hamada _et al._ 2021).
 

@@ -1,4 +1,4 @@
-# Neuron Input Impedance (_Z_<sub>in</sub>)
+# Neuron input impedance (_Z_<sub>in</sub>)
 
 Neuron Simulation Environment script for computing max/min _Z_<sub>in</sub> and generating _Z_<sub>in</sub> map. 
 

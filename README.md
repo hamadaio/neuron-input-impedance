@@ -2,7 +2,7 @@
 
 Neuron Simulation Environment script for computing max/min _Z_<sub>N</sub> and generating _Z_<sub>N</sub> map.
 
-``impedance_map.hoc`` - generates _Z_<sub>in</sub> map
+``impedance_map.hoc`` - generates _Z_<sub>N</sub> map
 
 ``max_Zin.hoc`` - computes the max & min _Z_<sub>N</sub> values by looping through the entire electrotonic neuronal structure.
 

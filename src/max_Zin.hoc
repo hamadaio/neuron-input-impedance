@@ -1,9 +1,8 @@
 
 load_file("nrngui.hoc")
-
-xopen("$(NEURONHOME)/lib/hoc/noload.hoc")
 load_proc("nrnmainmenu")
 
+xopen("$(NEURONHOME)/lib/hoc/noload.hoc")
 xopen("neuron_param.hoc")
 
 geom_nseg()
@@ -11,32 +10,30 @@ parameters()
 drug()
 init_channels()
 
-IMP_FREQ = 0
-
-
-//forsec axonal{
-	//delete_section()
-//}
+// remove axonal section
+forsec axonal{
+	delete_section()
+}
 
 objref min_z_sec,max_z_sec
 
-
-
-
 MAX_Z_in = 0
-MIN_Z_in = 9500
+MIN_Z_in = 1e9
 
-
-
+// input i mpedance frequency 
+IMP_FREQ = 0
 
 objref imp
+
 soma{
 	imp = new Impedance()
 	imp.loc(0.5)
 	imp.compute(IMP_FREQ,0)
 }
+
 MIN_Z = 1000
 MAX_Z = 0
+
 forsec apical{
 	for (x){
 		if (imp.input(x)> MAX_Z_in){
@@ -51,11 +48,10 @@ forsec apical{
 			min_z_seg = x
 			MIN_Z_in = imp.input(x)
 			print "min",imp.input(x),MAX_Z_in,secname()
-
-
 		}
 	}
 }	
 
+// print max and min Zn numerical values and corresponsing dendritic section
 max_z_sec.sec{print "max impedance is in section:", secname(), ", seg:" , max_z_seg, "with impedance:" ,MAX_Z_in}
 min_z_sec.sec{print "min impedance is in section:", secname(), ", seg:", min_z_seg, "with impedance:",MIN_Z_in}

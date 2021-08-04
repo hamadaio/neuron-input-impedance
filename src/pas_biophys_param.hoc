@@ -1,0 +1,81 @@
+xopen("2015_10_14_C1.hoc") // Human Layer 5 pyramidal neuron
+
+access soma
+area(0.5)
+distance()
+
+
+proc geom_nseg() {
+	
+	soma area(0.5) // make sure diam reflects 3d points
+	//forall {nseg = int((L/(0.1*lambda_f(3000))+0.9)/2)*2+1} 
+	forall {nseg = int((L/(0.1*lambda_f(300))+0.9)/2)*2+1} //from Ted (way lower nseg)
+
+	
+}
+	
+geom_nseg()
+
+
+//--------------------------------------------------------------
+//  Initialise user-defined membrane parameters 
+// --------------------------------------------------------------
+
+proc parameters() {
+
+	celsius = 33		// makes AP amplitude larger …. could have been the rec. temperature.
+	Ri = 150	    			
+	Cm = 1.2	     		
+	Rm = 25000			// 25000 for L5 pyramidal neurons. See Kole et al.
+	Cm_myelin = 0.05     
+	Rm_myelin = 35000	
+	v_init = 0		
+	spinescale = 1					
+}
+
+
+
+// ----------------------------------------------------------------------------
+// Channel densities
+//-----------------------------------------------------------------------------
+
+proc init_channels() {
+
+//All neuronal compartments		
+	forall {
+		insert pas 	 
+		Ra 	= Ri 
+		e_pas 	= v_init
+		g_pas 	= 1/Rm
+		cm 	= Cm
+		e_pas=v_init
+	}
+
+// Basal and apical dendrites
+	forsec basal {
+			g_pas=1/(Rm/spinescale)
+			cm=Cm*spinescale 					 
+	}
+	
+	forsec  apical {
+			g_pas=1/(Rm/spinescale)
+			cm=Cm*spinescale				 
+	}
+
+//Soma	
+	soma {
+			nseg=15
+			e_pas=v_init
+		}
+
+// Axon
+	//forsec axonal {
+	//	L = 1e-12
+	//	diam = 1e-12
+	//	nseg = 1
+	//}	
+}
+
+
+
+

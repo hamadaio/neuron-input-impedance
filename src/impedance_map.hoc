@@ -1,20 +1,17 @@
-
 load_file("nrngui.hoc")
-
-xopen("$(NEURONHOME)/lib/hoc/noload.hoc")
 load_proc("nrnmainmenu")
 
-xopen("neuron_param.hoc")
+xopen("$(NEURONHOME)/lib/hoc/noload.hoc")
+xopen("pas_biophys_param.hoc")
 
 geom_nseg()
 parameters()
-drug()
 init_channels()
 
 IMP_FREQ = 0
 
 MIN_Z_in = log(50)
-MAX_Z_in = log(3257)
+MAX_Z_in = log(3257) // max Zin for human neuron 2015-10-14_C1
 
 
 MIN_Z_tr = log(1)

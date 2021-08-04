@@ -10,6 +10,6 @@ Neuron Simulation Environment script for computing max/min _Z_<sub>N</sub> and g
 
 ---
 
-#### Example of rodent & human _Z_<sub>in</sub> map figure generated at 0 Hz (Hamada _et al._ 2021).
+#### Example of rodent & human _Z_<sub>N</sub> map figure generated at 0 Hz (Hamada _et al._ 2021).
 
 <img src="https://user-images.githubusercontent.com/42112716/117575320-92aeee00-b0e1-11eb-91b1-19e1c143e5dd.png" alt="input-impedance" width="500"/>

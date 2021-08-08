@@ -6,21 +6,22 @@ xopen("pas_biophys_param.hoc")
 
 geom_nseg()
 parameters()
+//drug()
 init_channels()
 
-// removing axonal compartment
+// Removing axonal compartment
 forsec axonal{
 	delete_section()
 }
 
-
 objref min_z_sec,max_z_sec
 
-
 IMP_FREQ = 0
+
 MAX_DIST = 500
+
 MAX_Z_in = 0
-MIN_Z_in = 9500
+MIN_Z_in = 1e9
 
 objref imp
 
@@ -34,17 +35,40 @@ MIN_Z = 1000
 MAX_Z = 0
 soma { distance(0, 0.5) }
 
-// To run for only apical branches:  _forsec apical{}_
+
+// Run from console. Prints Zin for dendritic nseg within radius = MAX_DIST
+proc report_zin_dist (){
+	forsec all{
+		for (x){
+			if (distance(x)>MAX_DIST){continue}
+			print secname(), "	", imp.input(x), "	", x, "	", distance(x)
+		}
+ 	}
+}
+
+
+// Run from console. Prints Zin for all dendritic segs 
+proc report_zin_all (){
+	forsec all{
+		for (x){
+			print secname(), "	", imp.input(x), "	", x, "	", distance(x)
+		}
+ 	}
+}
+
+
+// To run for only apical branches:  _forsec apical/basal/axonal{}_
 forsec all{ 
 	for (x){
+		//print secname(), "	", imp.input(x), "	", x, "	", distance(x)
 		if (distance(x)> MAX_DIST){continue}
 		if (imp.input(x)> MAX_Z_in){
 
 			max_z_sec = new SectionRef()
 			max_z_seg = x
 			MAX_Z_in = imp.input(x)
-
 		}
+
 		if (imp.input(x)< MIN_Z_in){
 			min_z_sec = new SectionRef()
 			min_z_seg = x
@@ -53,5 +77,6 @@ forsec all{
 	}
 }	
 
+// Prints max/min Zin for selected dendritic trees
 max_z_sec.sec{print "max impedance is in section:", secname(), ", seg:" , max_z_seg, "with impedance:" ,MAX_Z_in}
 min_z_sec.sec{print "min impedance is in section:", secname(), ", seg:", min_z_seg, "with impedance:",MIN_Z_in}

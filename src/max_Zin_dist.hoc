@@ -35,6 +35,7 @@ MIN_Z = 1000
 MAX_Z = 0
 soma { distance(0, 0.5) }
 
+
 // Run from console. Prints Zin for dendritic nseg within radius = MAX_DIST
 proc report_zin_dist (){
 	forsec all{

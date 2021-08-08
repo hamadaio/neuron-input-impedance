@@ -6,6 +6,7 @@ xopen("pas_biophys_param.hoc")
 
 geom_nseg()
 parameters()
+//drug()
 init_channels()
 
 // Remove axonal compartment 
@@ -18,10 +19,10 @@ objref min_z_sec,max_z_sec
 IMP_FREQ = 0
 
 MAX_Z_in = 0
-MIN_Z_in = 9500
+MIN_Z_in = 1e9
 
-MIN_Z = 1000
-MAX_Z = 0
+//MIN_Z = 1000
+//MAX_Z = 0
 
 
 objref imp
@@ -32,18 +33,20 @@ soma {
 	imp.compute(IMP_FREQ,0)
 }
 
+soma { distance(0, 0.5) } // Make soma(0) be reference point for distance measurements
 
+// Run for all nseg && all the function in terminal/console
+/*
 proc reportzin() {
-forsec all {
-	for (x) printf(imp.input(x))
-	//print imp.input(x)
- }
-} 
+   forsec all {
+     for (x) print imp.input(x)
+   }
+}
+*/
 
-
-/* forsec apical{
+forsec all{
 	for (x){
-		printf("%g\n", imp.input(x))
+		print secname(), "	", imp.input(x), "	", x, "	", distance(x)
  		if (imp.input(x)> MAX_Z_in){
 
 			max_z_sec = new SectionRef()
@@ -61,4 +64,4 @@ forsec all {
 }	
 
 max_z_sec.sec{print "max impedance is in section:", secname(), ", seg:" , max_z_seg, "with impedance:" ,MAX_Z_in}
-min_z_sec.sec{print "min impedance is in section:", secname(), ", seg:", min_z_seg, "with impedance:",MIN_Z_in} */
+min_z_sec.sec{print "min impedance is in section:", secname(), ", seg:", min_z_seg, "with impedance:",MIN_Z_in}

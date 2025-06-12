@@ -8,7 +8,10 @@ h('load_proc("nrnmainmenu")')
 
 h('xopen("Neuron_parameters.hoc")')
 
-h.geom_nseg()
+# Replace h.geom_nseg() with direct segment number calculation
+for sec in h.allsec():
+    sec.nseg = int((sec.L/(0.1*h.lambda_f(100)) + 0.9)/2)*2 + 1
+
 h.parameters()
 h.drug()
 h.init_channels()
@@ -17,7 +20,6 @@ IMP_FREQ = 0
 
 MIN_Z_in = math.log(50)
 MAX_Z_in = math.log(60000)
-
 
 MIN_Z_tr = math.log(1)
 MAX_Z_tr = math.log(70)
@@ -35,17 +37,13 @@ imp.compute(IMP_FREQ,0)
 MIN_Z = 1000
 MAX_Z = 0
 for sec in h.all:
-	for seg in sec:
-		if LOG_SCALE:
-			seg.zin_var =math.log(imp.input(seg.x,sec=sec))
-			seg.ztr_var =math.log(imp.transfer(seg.x,sec=sec))
-		else:
-			seg.zin_var = imp.input(seg.x,sec=sec)
-			seg.ztr_var = imp.transfer(seg.x,sec=sec)
-
-		
-
-
+    for seg in sec:
+        if LOG_SCALE:
+            seg.zin_var =math.log(imp.input(seg.x,sec=sec))
+            seg.ztr_var =math.log(imp.transfer(seg.x,sec=sec))
+        else:
+            seg.zin_var = imp.input(seg.x,sec=sec)
+            seg.ztr_var = imp.transfer(seg.x,sec=sec)
 
 h('load_file("TColorMap.hoc")')
 
@@ -57,9 +55,6 @@ cm1.set_color_map(ps_i,MIN_Z_in,MAX_Z_in)
 h.fast_flush_list.append(ps_i)
 ps_i.exec_menu("Shape Plot")
 ps_i.exec_menu("Variable Scale")
-# Un tag in the human model:
-# ps_i.rotate(0,0,0,0,0,1.6)
-
 
 ps_t =  h.PlotShape()
 ps_t.exec_menu("View = plot")
@@ -69,7 +64,3 @@ cm1.set_color_map(ps_t,MIN_Z_tr,MAX_Z_tr)
 h.fast_flush_list.append(ps_t)
 ps_t.exec_menu("Shape Plot")
 ps_t.exec_menu("Variable Scale")
-
-# Un tag in the human model:
-# ps_t.rotate(0,0,0,0,0,1.6)
-
